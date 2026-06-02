@@ -48,7 +48,7 @@ public class sistemaAnagrama {
 
         } while (opcao != 0);
 
-        sc.close(); // Boa prática: fechar o scanner ao encerrar o programa
+        sc.close();
     }
 
     public static void exibirMenu() {
@@ -70,7 +70,7 @@ public class sistemaAnagrama {
             sc.nextLine(); // Consome a linha inteira para evitar loop infinito de buffer
         }
         int valor = sc.nextInt();
-        sc.nextLine(); // Consome o '\n' que sobra do nextInt()
+        sc.nextLine();
         return valor;
     }
 
@@ -83,7 +83,6 @@ public class sistemaAnagrama {
             return;
         }
 
-        // Verifica se a palavra já existe ignorando maiúsculas e minúsculas
         for (String p : palavras) {
             if (p.equalsIgnoreCase(palavra)) {
                 System.out.println("Erro: Esta palavra já está cadastrada!");
@@ -135,7 +134,6 @@ public class sistemaAnagrama {
         System.out.println("\n=== RESULTADOS ===");
 
         for (String p : palavras) {
-            // Verifica se é anagrama e se não é a própria palavra exata
             if (!p.equalsIgnoreCase(palavra) && ehAnagrama(palavra, p)) {
                 System.out.println("Anagrama encontrado: " + p);
                 encontrou = true;
@@ -148,11 +146,9 @@ public class sistemaAnagrama {
     }
 
     public static boolean ehAnagrama(String a, String b) {
-        // Remove espaços e acentos, depois transforma em minúsculas
         a = removerAcentos(a.replaceAll("\\s+", "")).toLowerCase();
         b = removerAcentos(b.replaceAll("\\s+", "")).toLowerCase();
 
-        // Se tamanhos forem diferentes após limpeza, não são anagramas
         if (a.length() != b.length()) {
             return false;
         }
@@ -166,7 +162,6 @@ public class sistemaAnagrama {
         return Arrays.equals(vetorA, vetorB);
     }
 
-    // Método auxiliar para remover acentos das strings (Ex: "Romã" -> "Roma")
     private static String removerAcentos(String str) {
         return Normalizer.normalize(str, Normalizer.Form.NFD)
                 .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
